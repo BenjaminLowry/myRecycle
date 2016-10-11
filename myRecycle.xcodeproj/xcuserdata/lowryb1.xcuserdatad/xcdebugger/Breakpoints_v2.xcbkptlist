@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myRecycle/ItemDetailViewController.swift"
-            timestampString = "494596547.283167"
+            timestampString = "495981430.434456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
+            startingLineNumber = "543"
+            endingLineNumber = "543"
             landmarkName = "textField(_:shouldChangeCharactersInRange:replacementString:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -108,11 +108,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myRecycle/ItemDetailViewController.swift"
-            timestampString = "494596547.283167"
+            timestampString = "495981430.434456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "637"
-            endingLineNumber = "637"
+            startingLineNumber = "653"
+            endingLineNumber = "653"
             landmarkName = "setupStatsView(_:previousWater:previousTrees:previousSmoke:previousTrash:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -124,11 +124,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myRecycle/ItemDetailViewController.swift"
-            timestampString = "494596547.283167"
+            timestampString = "495981430.434456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "635"
-            endingLineNumber = "635"
+            startingLineNumber = "651"
+            endingLineNumber = "651"
             landmarkName = "setupStatsView(_:previousWater:previousTrees:previousSmoke:previousTrash:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -140,11 +140,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myRecycle/ItemDetailViewController.swift"
-            timestampString = "494596547.283167"
+            timestampString = "495981430.434456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "629"
-            endingLineNumber = "629"
+            startingLineNumber = "645"
+            endingLineNumber = "645"
             landmarkName = "setupStatsView(_:previousWater:previousTrees:previousSmoke:previousTrash:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -172,11 +172,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myRecycle/ItemDetailViewController.swift"
-            timestampString = "494596547.283167"
+            timestampString = "495981430.434456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "753"
-            endingLineNumber = "753"
+            startingLineNumber = "769"
+            endingLineNumber = "769"
             landmarkName = "updateStatsView()"
             landmarkType = "5">
          </BreakpointContent>

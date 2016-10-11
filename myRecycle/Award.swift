@@ -16,7 +16,7 @@ class Award: NSObject, NSCoding {
     
     var image: UIImage = UIImage()
     
-    required init?(coder aDecoder: NSCoder){
+    required init?;?(coder aDecoder: NSCoder){
         title = aDecoder.decodeObjectForKey("Title") as! String
         pointWorth = aDecoder.decodeObjectForKey("Point Worth") as! Int
         

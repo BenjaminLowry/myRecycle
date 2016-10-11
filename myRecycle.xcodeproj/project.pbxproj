@@ -23,7 +23,6 @@
 		5F67C0841CA02AC300B6FB9A /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F67C0831CA02AC300B6FB9A /* StatsViewController.swift */; };
 		5F7C85931CF3375D0046938D /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7C85921CF3375D0046938D /* LandingPageViewController.swift */; };
 		5F8A9FB91CF4828700F12338 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F8A9FB81CF4828700F12338 /* Launch Screen.storyboard */; };
-		5FA472DC1CFDB90A00F37A90 /* myRecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA472DB1CFDB90A00F37A90 /* myRecycleTests.swift */; };
 		5FD5ED9E1D06773100064119 /* AboutStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5ED9D1D06773100064119 /* AboutStatsViewController.swift */; };
 		5FED92C21D828526009DAF06 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92C11D828526009DAF06 /* AudioToolbox.framework */; };
 		5FED92C41D82852F009DAF06 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92C31D82852F009DAF06 /* CFNetwork.framework */; };
@@ -33,23 +32,12 @@
 		5FED92CD1D8285F9009DAF06 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92CC1D8285F9009DAF06 /* MobileCoreServices.framework */; };
 		5FED92CF1D828601009DAF06 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92CE1D828601009DAF06 /* QuartzCore.framework */; };
 		5FED92D31D828613009DAF06 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92D21D828613009DAF06 /* Security.framework */; };
-		5FED92D51D828619009DAF06 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92D41D828619009DAF06 /* StoreKit.framework */; };
 		5FED92D71D828622009DAF06 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92D61D828622009DAF06 /* SystemConfiguration.framework */; };
 		5FED92D91D82864A009DAF06 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92D81D82864A009DAF06 /* libsqlite3.dylib */; };
 		5FED92E71D83C687009DAF06 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92E41D83C687009DAF06 /* Bolts.framework */; };
 		5FED92E81D83C687009DAF06 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92E51D83C687009DAF06 /* Parse.framework */; };
 		5FED92E91D83C687009DAF06 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FED92E61D83C687009DAF06 /* ParseUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5FA472DE1CFDB90A00F37A90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5F0F80F41C9057AC00B7278D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5F0F80FB1C9057AC00B7278D;
-			remoteInfo = myRecycle;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5F0D62631CC606DC008777D2 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
@@ -70,7 +58,6 @@
 		5F67C0831CA02AC300B6FB9A /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		5F7C85921CF3375D0046938D /* LandingPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		5F8A9FB81CF4828700F12338 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		5FA472D91CFDB90A00F37A90 /* myRecycleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myRecycleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FA472DB1CFDB90A00F37A90 /* myRecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myRecycleTests.swift; sourceTree = "<group>"; };
 		5FA472DD1CFDB90A00F37A90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FD5ED9D1D06773100064119 /* AboutStatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutStatsViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +70,6 @@
 		5FED92CE1D828601009DAF06 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5FED92D01D82860A009DAF06 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		5FED92D21D828613009DAF06 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		5FED92D41D828619009DAF06 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5FED92D61D828622009DAF06 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5FED92D81D82864A009DAF06 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
 		5FED92DC1D828782009DAF06 /* myRecycle-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "myRecycle-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
@@ -100,7 +86,6 @@
 				5FED92D91D82864A009DAF06 /* libsqlite3.dylib in Frameworks */,
 				5FED92D71D828622009DAF06 /* SystemConfiguration.framework in Frameworks */,
 				5FED92E91D83C687009DAF06 /* ParseUI.framework in Frameworks */,
-				5FED92D51D828619009DAF06 /* StoreKit.framework in Frameworks */,
 				5FED92E71D83C687009DAF06 /* Bolts.framework in Frameworks */,
 				5FED92D31D828613009DAF06 /* Security.framework in Frameworks */,
 				5FED92CF1D828601009DAF06 /* QuartzCore.framework in Frameworks */,
@@ -111,13 +96,6 @@
 				5FED92C61D828537009DAF06 /* CoreGraphics.framework in Frameworks */,
 				5FED92C41D82852F009DAF06 /* CFNetwork.framework in Frameworks */,
 				5FED92C21D828526009DAF06 /* AudioToolbox.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5FA472D61CFDB90A00F37A90 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +110,6 @@
 				5FED92E51D83C687009DAF06 /* Parse.framework */,
 				5FED92E61D83C687009DAF06 /* ParseUI.framework */,
 				5FED92D61D828622009DAF06 /* SystemConfiguration.framework */,
-				5FED92D41D828619009DAF06 /* StoreKit.framework */,
 				5FED92D21D828613009DAF06 /* Security.framework */,
 				5FED92D01D82860A009DAF06 /* SceneKit.framework */,
 				5FED92CE1D828601009DAF06 /* QuartzCore.framework */,
@@ -152,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				5F0F80FC1C9057AC00B7278D /* myRecycle.app */,
-				5FA472D91CFDB90A00F37A90 /* myRecycleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -244,30 +220,13 @@
 			productReference = 5F0F80FC1C9057AC00B7278D /* myRecycle.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5FA472D81CFDB90A00F37A90 /* myRecycleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5FA472E21CFDB90A00F37A90 /* Build configuration list for PBXNativeTarget "myRecycleTests" */;
-			buildPhases = (
-				5FA472D51CFDB90A00F37A90 /* Sources */,
-				5FA472D61CFDB90A00F37A90 /* Frameworks */,
-				5FA472D71CFDB90A00F37A90 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5FA472DF1CFDB90A00F37A90 /* PBXTargetDependency */,
-			);
-			name = myRecycleTests;
-			productName = myRecycleTests;
-			productReference = 5FA472D91CFDB90A00F37A90 /* myRecycleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		5F0F80F41C9057AC00B7278D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0730;
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Ben LOWRY";
@@ -275,11 +234,11 @@
 					5F0F80FB1C9057AC00B7278D = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = NC6Q6DD92R;
-					};
-					5FA472D81CFDB90A00F37A90 = {
-						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = QS5G68243B;
-						TestTargetID = 5F0F80FB1C9057AC00B7278D;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -297,7 +256,6 @@
 			projectRoot = "";
 			targets = (
 				5F0F80FB1C9057AC00B7278D /* myRecycle */,
-				5FA472D81CFDB90A00F37A90 /* myRecycleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -310,13 +268,6 @@
 				5F8A9FB91CF4828700F12338 /* Launch Screen.storyboard in Resources */,
 				5F0F81071C9057AC00B7278D /* Assets.xcassets in Resources */,
 				5F0F81051C9057AC00B7278D /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5FA472D71CFDB90A00F37A90 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,23 +295,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5FA472D51CFDB90A00F37A90 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5FA472DC1CFDB90A00F37A90 /* myRecycleTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5FA472DF1CFDB90A00F37A90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5F0F80FB1C9057AC00B7278D /* myRecycle */;
-			targetProxy = 5FA472DE1CFDB90A00F37A90 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5F0F81031C9057AC00B7278D /* Main.storyboard */ = {
@@ -467,7 +402,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = myRecycle/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = myRecycle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -490,41 +425,13 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = myRecycle/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = myRecycle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0f121a73-b2b3-4ad6-9c01-7d19d2dd5034";
 				SWIFT_OBJC_BRIDGING_HEADER = "myRecycle-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		5FA472E01CFDB90A00F37A90 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = myRecycleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weebly.allbenlowryscode.myRecycleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/myRecycle.app/myRecycle";
-			};
-			name = Debug;
-		};
-		5FA472E11CFDB90A00F37A90 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = myRecycleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weebly.allbenlowryscode.myRecycleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/myRecycle.app/myRecycle";
 			};
 			name = Release;
 		};
@@ -545,15 +452,6 @@
 			buildConfigurations = (
 				5F0F810F1C9057AC00B7278D /* Debug */,
 				5F0F81101C9057AC00B7278D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5FA472E21CFDB90A00F37A90 /* Build configuration list for PBXNativeTarget "myRecycleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5FA472E01CFDB90A00F37A90 /* Debug */,
-				5FA472E11CFDB90A00F37A90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

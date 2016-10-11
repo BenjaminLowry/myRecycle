@@ -60,6 +60,9 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissAmountKeyboard))
+        view.addGestureRecognizer(tap)
+        
         materialTextField.delegate = self
         amountTextField.delegate = self
         unitTextField.delegate = self
@@ -167,6 +170,7 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         
     
     }
+    
     
     //setting tableView rows and sections
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -340,6 +344,12 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         
         textField.inputAccessoryView = toolBar
         
+    }
+    
+    //for dismissing the keyboard for the amount text field
+    func dismissAmountKeyboard() {
+        
+        amountTextField.endEditing(true)
     }
 
     /*** Material Picker Done/Clear ***/
@@ -553,6 +563,13 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         let newLength = currentCharacterCount + string.characters.count - range.length
         
         return newLength <= 5
+        
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool { //called when 'return' key is pressed
+        
+        textField.resignFirstResponder()
+        return true
         
     }
     

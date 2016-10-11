@@ -13,7 +13,7 @@ import UIKit
 
 extension UIImage {
     
-    func crop() -> UIImage {
+    func crop(image: UIImage) -> UIImage {
         
         let imageRef:CGImageRef = CGImageCreateWithImageInRect(self.CGImage, CGRectMake(0, self.size.height/2 - self.size.width/2, self.size.width, self.size.width))!
         let cropped:UIImage = UIImage(CGImage:imageRef)

@@ -41,48 +41,48 @@ class UserProfile: NSObject, NSCoding {
         
         do {
             
-            if aDecoder.decodeObjectForKey("Username") != nil && aDecoder.decodeObjectForKey("Password") != nil && aDecoder.decodeObjectForKey("Points") != nil && aDecoder.decodeObjectForKey("Level") != nil && aDecoder.decodeObjectForKey("Rank") != nil  {
+            if aDecoder.decodeObject(forKey: "Username") != nil && aDecoder.decodeObject(forKey: "Password") != nil && aDecoder.decodeObject(forKey: "Points") != nil && aDecoder.decodeObject(forKey: "Level") != nil && aDecoder.decodeObject(forKey: "Rank") != nil  {
                 
-                username = aDecoder.decodeObjectForKey("Username") as! String
-                password = aDecoder.decodeObjectForKey("Password") as! String
-                points = aDecoder.decodeObjectForKey("Points") as! Int
-                level = aDecoder.decodeObjectForKey("Level") as! Int
-                rank = aDecoder.decodeObjectForKey("Rank") as! String
-                
-            } else {
-                
-                throw AppError.DecodeError
-            }
-            
-            if aDecoder.decodeObjectForKey("Log Items") != nil {
-                logItems = aDecoder.decodeObjectForKey("Log Items") as! [LogItem]
-            } else {
-                
-                throw AppError.DecodeError
-            }
-            
-            if aDecoder.decodeObjectForKey("Trees Saved") != nil && aDecoder.decodeObjectForKey("CO2 Prevented") != nil && aDecoder.decodeObjectForKey("Electricity Saved") != nil && aDecoder.decodeObjectForKey("Water Saved") != nil && aDecoder.decodeObjectForKey("Hearts Warmed") != nil {
-                
-                treesSaved = aDecoder.decodeObjectForKey("Trees Saved") as! Double
-                carbonDioxideEmissionsPrevented = aDecoder.decodeObjectForKey("CO2 Prevented") as! Double
-                electricitySaved = aDecoder.decodeObjectForKey("Electricity Saved") as! Double
-                waterSaved = aDecoder.decodeObjectForKey("Water Saved") as! Double
-                trashRecycled = aDecoder.decodeObjectForKey("Trees Recycled") as! Double
-                heartsWarmed = aDecoder.decodeObjectForKey("Hearts Warmed") as! Int
+                username = aDecoder.decodeObject(forKey: "Username") as! String
+                password = aDecoder.decodeObject(forKey: "Password") as! String
+                points = aDecoder.decodeObject(forKey: "Points") as! Int
+                level = aDecoder.decodeObject(forKey: "Level") as! Int
+                rank = aDecoder.decodeObject(forKey: "Rank") as! String
                 
             } else {
                 
-                throw AppError.DecodeError
+                throw AppError.decodeError
             }
             
-            if aDecoder.decodeObjectForKey("Profile Picture") != nil {
-                profilePicture = aDecoder.decodeObjectForKey("Profile Picture") as! UIImage
+            if aDecoder.decodeObject(forKey: "Log Items") != nil {
+                logItems = aDecoder.decodeObject(forKey: "Log Items") as! [LogItem]
             } else {
                 
-                throw AppError.DecodeError
+                throw AppError.decodeError
             }
             
-        } catch AppError.DecodeError {
+            if aDecoder.decodeObject(forKey: "Trees Saved") != nil && aDecoder.decodeObject(forKey: "CO2 Prevented") != nil && aDecoder.decodeObject(forKey: "Electricity Saved") != nil && aDecoder.decodeObject(forKey: "Water Saved") != nil && aDecoder.decodeObject(forKey: "Hearts Warmed") != nil {
+                
+                treesSaved = aDecoder.decodeObject(forKey: "Trees Saved") as! Double
+                carbonDioxideEmissionsPrevented = aDecoder.decodeObject(forKey: "CO2 Prevented") as! Double
+                electricitySaved = aDecoder.decodeObject(forKey: "Electricity Saved") as! Double
+                waterSaved = aDecoder.decodeObject(forKey: "Water Saved") as! Double
+                trashRecycled = aDecoder.decodeObject(forKey: "Trees Recycled") as! Double
+                heartsWarmed = aDecoder.decodeObject(forKey: "Hearts Warmed") as! Int
+                
+            } else {
+                
+                throw AppError.decodeError
+            }
+            
+            if aDecoder.decodeObject(forKey: "Profile Picture") != nil {
+                profilePicture = aDecoder.decodeObject(forKey: "Profile Picture") as! UIImage
+            } else {
+                
+                throw AppError.decodeError
+            }
+            
+        } catch AppError.decodeError {
             
             print("decoding error")
             
@@ -99,23 +99,23 @@ class UserProfile: NSObject, NSCoding {
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(username, forKey: "Username")
-        aCoder.encodeObject(password, forKey: "Password")
-        aCoder.encodeObject(points, forKey: "Points")
-        aCoder.encodeObject(level, forKey: "Level")
-        aCoder.encodeObject(rank, forKey: "Rank")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(username, forKey: "Username")
+        aCoder.encode(password, forKey: "Password")
+        aCoder.encode(points, forKey: "Points")
+        aCoder.encode(level, forKey: "Level")
+        aCoder.encode(rank, forKey: "Rank")
         
-        aCoder.encodeObject(logItems, forKey: "Log Items")
+        aCoder.encode(logItems, forKey: "Log Items")
         
-        aCoder.encodeObject(treesSaved, forKey: "Trees Saved")
-        aCoder.encodeObject(carbonDioxideEmissionsPrevented, forKey: "CO2 Prevented")
-        aCoder.encodeObject(electricitySaved, forKey: "Electricity Saved")
-        aCoder.encodeObject(waterSaved, forKey: "Water Saved")
-        aCoder.encodeObject(trashRecycled, forKey: "Trees Recycled")
-        aCoder.encodeObject(heartsWarmed, forKey: "Hearts Warmed")
+        aCoder.encode(treesSaved, forKey: "Trees Saved")
+        aCoder.encode(carbonDioxideEmissionsPrevented, forKey: "CO2 Prevented")
+        aCoder.encode(electricitySaved, forKey: "Electricity Saved")
+        aCoder.encode(waterSaved, forKey: "Water Saved")
+        aCoder.encode(trashRecycled, forKey: "Trees Recycled")
+        aCoder.encode(heartsWarmed, forKey: "Hearts Warmed")
         
-        aCoder.encodeObject(profilePicture, forKey: "Profile Picture")
+        aCoder.encode(profilePicture, forKey: "Profile Picture")
         
     }
     
@@ -191,7 +191,7 @@ class UserProfile: NSObject, NSCoding {
         
     }
     
-    func updateStats(materialType: String, unit: String, amount: Double, reducingStats: Bool) -> [Double]{
+    func updateStats(_ materialType: String, unit: String, amount: Double, reducingStats: Bool) -> [Double]{
         
         //to establish previous values in order to calculate change
         let previousElectricity: Double = (currentAppStatus.loggedInUser?.electricitySaved)!

@@ -29,23 +29,23 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         
         loadData()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LandingPageViewController.keyboardWillChange(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LandingPageViewController.keyboardWillChange(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         self.hideKeyboardWhenTappedAround()
         
         usernameTextField.delegate = self
         passwordTextField.delegate = self
         
-        usernameTextField.autocorrectionType = .No
-        passwordTextField.autocorrectionType = .No
+        usernameTextField.autocorrectionType = .no
+        passwordTextField.autocorrectionType = .no
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         if currentAppStatus.loggedIn {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -57,7 +57,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    @IBAction func login(sender: AnyObject){
+    @IBAction func login(_ sender: AnyObject){
     
         loadData()
         
@@ -73,9 +73,9 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         if index.password == passwordTextField.text! {
                             currentAppStatus.loggedIn = true
                             currentAppStatus.loggedInUser = index
-                            self.dismissViewControllerAnimated(true, completion: nil)
+                            self.dismiss(animated: true, completion: nil)
                         } else { //if the password doesn't match the username
-                            throw AppError.LoginError
+                            throw AppError.loginError
                         }
                         
                     }
@@ -83,40 +83,40 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                 }
                 
             } else { //if the inputted username is invalid
-                throw AppError.LoginError
+                throw AppError.loginError
             }
             
-        } catch AppError.LoginError {
+        } catch AppError.loginError {
             
             //present error
-            let alertController = UIAlertController(title: "Error #E07", message: "Login error, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error #E07", message: "Login error, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         } catch {
             
             //present error
-            let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         }
     
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         //keyboardWillChange (below) is used instead of textFieldDidBeginEditing because textFieldDidBeginEditing
         //is called before the UIKeyboardWillShowNotification necessary to determine the keyboard height.
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         animateTextField(false)
     }
     
     
-    func animateTextField(textFieldUp:Bool) {
+    func animateTextField(_ textFieldUp:Bool) {
         let movementDistance:CGFloat = keyboardHeight
         let movementDuration = 0.3
         
@@ -131,44 +131,44 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         UIView.beginAnimations("anim", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(movementDuration)
-        self.view.frame = CGRectOffset(self.view.frame, 0, movement)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
         UIView.commitAnimations()
     }
     
-    func keyboardWillChange(notification:NSNotification) {
-        let keyboardRect:CGRect = ((notification.userInfo![UIKeyboardFrameEndUserInfoKey])?.CGRectValue)!
+    func keyboardWillChange(_ notification:Notification) {
+        let keyboardRect:CGRect = (((notification.userInfo![UIKeyboardFrameEndUserInfoKey]) as AnyObject).cgRectValue)!
         keyboardHeight = keyboardRect.height
         animateTextField(true)
     }
     
     func sendLoginError(){
         
-        let alert = UIAlertController(title: "Login Error", message: "Username and password do not match", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Login Error", message: "Username and password do not match", preferredStyle: UIAlertControllerStyle.alert)
         
-        let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+        let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
         alert.addAction(alertAction)
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func documentsDirectory() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         return paths[0]
     }
     
     func dataFilePath() -> String {
-        return (documentsDirectory() as NSString).stringByAppendingPathComponent("AccountInfo.plist")
+        return (documentsDirectory() as NSString).appendingPathComponent("AccountInfo.plist")
     }
     
     func loadData() {
         let path = dataFilePath()
         
-        if NSFileManager.defaultManager().fileExistsAtPath(path){
+        if FileManager.default.fileExists(atPath: path){
             
-            if let data = NSData(contentsOfFile: path){
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: path)){
                 
-                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-                localUsernames = unarchiver.decodeObjectForKey("Usernames") as! [String]
+                let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+                localUsernames = unarchiver.decodeObject(forKey: "Usernames") as! [String]
                 
                 unarchiver.finishDecoding()
             }
@@ -176,7 +176,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func initiateBorders(views: [UIView]) {
+    func initiateBorders(_ views: [UIView]) {
         
         for index: UIView in views {
             

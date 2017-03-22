@@ -10,13 +10,48 @@
 
 import Foundation
 import UIKit
+/*// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}*/
+
 
 extension UIImage {
     
-    func crop(image: UIImage) -> UIImage {
+    func crop() -> UIImage {
         
-        let imageRef:CGImageRef = CGImageCreateWithImageInRect(self.CGImage, CGRectMake(0, self.size.height/2 - self.size.width/2, self.size.width, self.size.width))!
-        let cropped:UIImage = UIImage(CGImage:imageRef)
+        let imageRef:CGImage = self.cgImage!.cropping(to: CGRect(x: 0, y: self.size.height/2 - self.size.width/2, width: self.size.width, height: self.size.width))!
+        let cropped:UIImage = UIImage(cgImage:imageRef)
         
         return cropped
         
@@ -46,9 +81,9 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
     @IBOutlet weak var scrollSuperView: UIView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
-    var colors:[UIColor] = [UIColor.redColor(), UIColor.blueColor()]
+    var colors:[UIColor] = [UIColor.red, UIColor.blue]
     var titles:[String] = ["Awards", "Activity"]
-    var frame: CGRect = CGRectMake(0, 0, 0, 0)
+    var frame: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
     @IBOutlet weak var pageControl: UIPageControl!
     
     //awards
@@ -62,11 +97,9 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateAwards()
+        profileImageButton.setImage(currentAppStatus.loggedInUser?.profilePicture, for: UIControlState())
         
-        profileImageButton.setImage(currentAppStatus.loggedInUser?.profilePicture, forState: .Normal)
-        
-        if UIScreen.mainScreen().bounds.height == 480 { //iPhone 4s
+        if UIScreen.main.bounds.height == 480 { //iPhone 4s
             usernameLabelVerticalDisplacementConstraint.constant = 6
         }
         
@@ -80,16 +113,16 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
-        homeBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 15)!], forState: UIControlState.Normal)
-        signOutBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 15)!], forState: UIControlState.Normal)
+        homeBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 15)!], for: UIControlState())
+        signOutBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 15)!], for: UIControlState())
         
         if currentAppStatus.loggedIn {
             
@@ -119,31 +152,31 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
         
     }
     
-    @IBAction func returnHome (sender: AnyObject){
+    @IBAction func returnHome (_ sender: AnyObject){
     
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     
     }
     
-    @IBAction func signOut(sender: AnyObject) {
+    @IBAction func signOut(_ sender: AnyObject) {
     
         currentAppStatus.loggedIn = false
         currentAppStatus.loggedInUser = nil
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func profileChangeButtonTapped(sender: UIButton){
+    @IBAction func profileChangeButtonTapped(_ sender: UIButton){
         
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
-        imagePickerController.sourceType = .PhotoLibrary
+        imagePickerController.sourceType = .photoLibrary
         
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
+        self.present(imagePickerController, animated: true, completion: nil)
         
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageControl.currentPage = Int(pageNumber)
@@ -164,7 +197,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
             
             let view = UIView(frame: frame)
             view.backgroundColor = UIColor(red: 178/255, green: 223/255, blue: 146/255, alpha: 1)
-            view.layer.borderColor = UIColor.blackColor().CGColor
+            view.layer.borderColor = UIColor.black.cgColor
             view.layer.borderWidth = 0.5
             //view.backgroundColor = colors[index]
             
@@ -173,14 +206,14 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
             titleLabel.text = titles[index]
             titleLabel.font = UIFont(name: "AvenirNext-Medium", size: 100)
             titleLabel.adjustsFontSizeToFitWidth = true
-            titleLabel.baselineAdjustment = .AlignCenters
+            titleLabel.baselineAdjustment = .alignCenters
             view.addSubview(titleLabel)
             
             if index == 1 {
                 
                 let label = UILabel(frame: CGRect(x: view.frame.width/2 - 200/2, y: view.frame.height/2 - 30/2, width: 200, height: 30))
                 label.text = "Coming Soon!"
-                label.textAlignment = .Center
+                label.textAlignment = .center
                 label.font = UIFont(name: "Avenir Next", size: 20)
                 view.addSubview(label)
                 
@@ -199,17 +232,21 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
                 var heartImage = UIImage()
                 let heartLabel = UILabel()
                 
-                if currentAppStatus.loggedInUser?.heartsWarmed > 500 {
-                    
-                    heartImage = UIImage(named: "Heart")!
-                    heartLabel.text = "\"Caretaker\""
-                    
-                } else {
-                    
-                    heartImage = UIImage(named: "Heart Grey")!
-                    heartLabel.text = "???"
-                    
+                if let user = currentAppStatus.loggedInUser {
+                    if user.heartsWarmed > 500 {
+                        
+                        heartImage = UIImage(named: "Heart")!
+                        heartLabel.text = "\"Caretaker\""
+                        
+                    } else {
+                        
+                        heartImage = UIImage(named: "Heart Grey")!
+                        heartLabel.text = "???"
+                        
+                    }
                 }
+                
+                
                 
                 let heartImageView = UIImageView(image: heartImage)
                 heartImageView.frame = CGRect(x: 25, y: 78, width: 30, height: 30)
@@ -226,17 +263,20 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
                 var lightningImage = UIImage()
                 let lightningLabel = UILabel()
                 
-                if currentAppStatus.loggedInUser?.electricitySaved > 10000 {
-                    
-                    lightningImage = UIImage(named: "Lightning")!
-                    lightningLabel.text = "\"Electrician\""
-                    
-                } else {
-                    
-                    lightningImage = UIImage(named: "Lightning Grey")!
-                    lightningLabel.text = "???"
-                    
+                if let user = currentAppStatus.loggedInUser {
+                    if user.electricitySaved > 10000.0 {
+                        
+                        lightningImage = UIImage(named: "Lightning")!
+                        lightningLabel.text = "\"Electrician\""
+                        
+                    } else {
+                        
+                        lightningImage = UIImage(named: "Lightning Grey")!
+                        lightningLabel.text = "???"
+                        
+                    }
                 }
+                
                 
                 let lightningImageView = UIImageView(image: lightningImage)
                 lightningImageView.frame = CGRect(x: 25, y: 120, width: 30, height: 30)
@@ -253,17 +293,20 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
                 var waterImage = UIImage()
                 let waterLabel = UILabel()
                 
-                if currentAppStatus.loggedInUser?.waterSaved > 10000 {
-                    
-                    waterImage = UIImage(named: "Water Drop")!
-                    waterLabel.text = "\"Moses\""
-                    
-                } else {
-                    
-                    waterImage = UIImage(named: "Water Drop Grey")!
-                    waterLabel.text = "???"
-                    
+                if let user = currentAppStatus.loggedInUser {
+                    if user.waterSaved > 10000.0 {
+                        
+                        waterImage = UIImage(named: "Water Drop")!
+                        waterLabel.text = "\"Moses\""
+                        
+                    } else {
+                        
+                        waterImage = UIImage(named: "Water Drop Grey")!
+                        waterLabel.text = "???"
+                        
+                    }
                 }
+                
                 
                 let waterImageView = UIImageView(image: waterImage)
                 waterImageView.frame = CGRect(x: 25, y: 159, width: 30, height: 30)
@@ -285,8 +328,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
             self.scrollView.addSubview(view)
         }
         
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * CGFloat(self.titles.count), self.scrollView.frame.size.height)
-        pageControl.addTarget(self, action: #selector(ProfileViewController.changePage(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width * CGFloat(self.titles.count), height: self.scrollView.frame.size.height)
+        pageControl.addTarget(self, action: #selector(ProfileViewController.changePage(_:)), for: UIControlEvents.valueChanged)
         
     }
     
@@ -296,7 +339,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
         
         profileImageButton.layer.borderWidth = 0.5
         profileImageButton.layer.masksToBounds = false
-        profileImageButton.layer.borderColor = UIColor.blackColor().CGColor
+        profileImageButton.layer.borderColor = UIColor.black.cgColor
         profileImageButton.layer.cornerRadius = profileImageButton.frame.size.width/2
         profileImageButton.clipsToBounds = true
         
@@ -305,7 +348,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
         
         var usernamePointSize: CGFloat = 0
         
-        switch UIScreen.mainScreen().bounds.height {
+        switch UIScreen.main.bounds.height {
         case 480: //iPhone 4s
             pointSize1 = 11
             pointSize2 = 10
@@ -338,13 +381,13 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
         
     }
     
-    func setLabelFonts(labels: [UILabel], font: UIFont){
+    func setLabelFonts(_ labels: [UILabel], font: UIFont){
         
         for index in 0..<labels.count {
             
             labels[index].font = font
             labels[index].adjustsFontSizeToFitWidth = true
-            labels[index].baselineAdjustment = .AlignCenters
+            labels[index].baselineAdjustment = .alignCenters
             
         }
         
@@ -355,11 +398,11 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
         
         pageControl.numberOfPages = titles.count
         pageControl.currentPage = 0
-        pageControl.tintColor = UIColor.redColor()
+        pageControl.tintColor = UIColor.red
         
     }
     
-    func changePage(sender: UIPageControl) {
+    func changePage(_ sender: UIPageControl) {
         
         let pager = sender
         let page: CGFloat = CGFloat(pager.currentPage)
@@ -370,15 +413,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
         
     }
     
-    func updateAwards() {
-        
-        if currentAppStatus.loggedInUser?.electricitySaved >= 10000 {
-            
-        }
-        
-    }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         do {
             
@@ -386,30 +422,30 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate, UIImagePick
             
             if let croppedImage = image?.crop() {
                 
-                profileImageButton.setImage(croppedImage, forState: .Normal)
+                profileImageButton.setImage(croppedImage, for: .normal)
                 currentAppStatus.loggedInUser?.profilePicture = croppedImage
                 
             } else {
-                throw AppError.ImageNotFoundError
+                throw AppError.imageNotFoundError
             }
             
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             
-        } catch AppError.ImageNotFoundError {
+        } catch AppError.imageNotFoundError {
             
             //present error
-            let alertController = UIAlertController(title: "Error #E03", message: "Sorry about that, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error #E03", message: "Sorry about that, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         } catch {
             
             //present error
-            let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         }
         

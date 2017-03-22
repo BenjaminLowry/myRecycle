@@ -20,21 +20,21 @@ class AppStatus {
     var localAccounts: [UserProfile] = [UserProfile]()
     
     func documentsDirectory() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         return paths[0]
     }
     
     func dataFilePath() -> String {
-        return (documentsDirectory() as NSString).stringByAppendingPathComponent("LocalData.plist")
+        return (documentsDirectory() as NSString).appendingPathComponent("LocalData.plist")
     }
     
     func saveLocalData() {
         
         let data = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
-        archiver.encodeObject(localAccounts, forKey: "LocalAccounts")
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        archiver.encode(localAccounts, forKey: "LocalAccounts")
         archiver.finishEncoding()
-        data.writeToFile(dataFilePath(), atomically: true)
+        data.write(toFile: dataFilePath(), atomically: true)
         
     }
     
@@ -42,12 +42,12 @@ class AppStatus {
         
         let path = dataFilePath()
         
-        if NSFileManager.defaultManager().fileExistsAtPath(path){
+        if FileManager.default.fileExists(atPath: path){
             
-            if let data = NSData(contentsOfFile: path){
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: path)){
                 
-                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-                localAccounts = unarchiver.decodeObjectForKey("LocalAccounts") as! [UserProfile]
+                let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+                localAccounts = unarchiver.decodeObject(forKey: "LocalAccounts") as! [UserProfile]
                 
                 unarchiver.finishDecoding()
                 

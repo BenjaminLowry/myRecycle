@@ -31,25 +31,25 @@ class LogItem: NSObject, NSCoding {
         
         do {
             
-            if aDecoder.decodeObjectForKey("Material Type") != nil && aDecoder.decodeDoubleForKey("Amount") != 0.0 && aDecoder.decodeObjectForKey("Unit") != nil {
+            if aDecoder.decodeObject(forKey: "Material Type") != nil && aDecoder.decodeDouble(forKey: "Amount") != 0.0 && aDecoder.decodeObject(forKey: "Unit") != nil {
                 
-                materialType = aDecoder.decodeObjectForKey("Material Type") as! String
-                amount = aDecoder.decodeDoubleForKey("Amount")
-                unit = aDecoder.decodeObjectForKey("Unit") as! String
+                materialType = aDecoder.decodeObject(forKey: "Material Type") as! String
+                amount = aDecoder.decodeDouble(forKey: "Amount")
+                unit = aDecoder.decodeObject(forKey: "Unit") as! String
                 
             } else { //error from here
                 
-                throw AppError.DecodeError
+                throw AppError.decodeError
             }
             
-            if aDecoder.decodeObjectForKey("PointWorth") != nil {
-                pointWorth = aDecoder.decodeObjectForKey("PointWorth") as! Int
+            if aDecoder.decodeObject(forKey: "PointWorth") != nil {
+                pointWorth = aDecoder.decodeObject(forKey: "PointWorth") as! Int
             } else {
                
-                throw AppError.DecodeError
+                throw AppError.decodeError
             }
             
-        } catch AppError.DecodeError {
+        } catch AppError.decodeError {
             print("decoding error")
         } catch {
             print("unknown error")
@@ -62,12 +62,12 @@ class LogItem: NSObject, NSCoding {
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(materialType, forKey: "Material Type")
-        aCoder.encodeDouble(amount, forKey: "Amount")
-        aCoder.encodeObject(unit, forKey: "Unit")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(materialType, forKey: "Material Type")
+        aCoder.encode(amount, forKey: "Amount")
+        aCoder.encode(unit, forKey: "Unit")
         
-        aCoder.encodeObject(pointWorth, forKey: "PointWorth")
+        aCoder.encode(pointWorth, forKey: "PointWorth")
     }
     
     func determinePointWorth() {

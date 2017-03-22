@@ -23,9 +23,9 @@ class AboutStatsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func back(sender: AnyObject) {
+    @IBAction func back(_ sender: AnyObject) {
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         
     }
     

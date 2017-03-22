@@ -23,15 +23,15 @@ extension UIViewController {
     }
 }
 
-enum AppError: ErrorType {
-    case NilError //#E01
-    case CellNotFoundError //#E02
-    case ImageNotFoundError //#E03
-    case NumberParseError //#E04
-    case PasswordMismatchError //#E05
-    case UsernameTakenError //#E06
-    case LoginError //#E07
-    case DecodeError //#E08
+enum AppError: Error {
+    case nilError //#E01
+    case cellNotFoundError //#E02
+    case imageNotFoundError //#E03
+    case numberParseError //#E04
+    case passwordMismatchError //#E05
+    case usernameTakenError //#E06
+    case loginError //#E07
+    case decodeError //#E08
 }
 
 class HomeViewController: UIViewController {
@@ -58,7 +58,7 @@ class HomeViewController: UIViewController {
     
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         if currentAppStatus.loggedIn {
@@ -68,9 +68,9 @@ class HomeViewController: UIViewController {
                 welcomeLabel.text = "Welcome " + text + "!"
                 welcomeLabel.font = UIFont(name: "AvenirNext-UltraLight", size: 30)
                 welcomeLabel.adjustsFontSizeToFitWidth = true
-                welcomeLabel.baselineAdjustment = .AlignCenters
-                welcomeLabel.textAlignment = NSTextAlignment.Center
-                welcomeLabel.hidden = false
+                welcomeLabel.baselineAdjustment = .alignCenters
+                welcomeLabel.textAlignment = NSTextAlignment.center
+                welcomeLabel.isHidden = false
                 
             }
             
@@ -78,19 +78,19 @@ class HomeViewController: UIViewController {
             
         } else { //if no one is logged in
             
-            welcomeLabel.hidden = true
+            welcomeLabel.isHidden = true
             
         }
         
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         if !currentAppStatus.loggedIn {
             
-            self.performSegueWithIdentifier("LandingPageSegue", sender: self)
+            self.performSegue(withIdentifier: "LandingPageSegue", sender: self)
             
         }
     }
@@ -100,30 +100,30 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func profileButtonPressed(sender: AnyObject) {
+    @IBAction func profileButtonPressed(_ sender: AnyObject) {
         
         if currentAppStatus.loggedIn {
-            self.performSegueWithIdentifier("ProfileSegue", sender: self)
+            self.performSegue(withIdentifier: "ProfileSegue", sender: self)
         } else {
             sendLoginNudge()
         }
         
     }
     
-    @IBAction func logButtonPressed(sender: AnyObject){
+    @IBAction func logButtonPressed(_ sender: AnyObject){
         
         if currentAppStatus.loggedIn {
-            self.performSegueWithIdentifier("LogSegue", sender: self)
+            self.performSegue(withIdentifier: "LogSegue", sender: self)
         } else {
             sendLoginNudge()
         }
         
     }
     
-    @IBAction func statsButtonPressed(sender: AnyObject) {
+    @IBAction func statsButtonPressed(_ sender: AnyObject) {
         
         if currentAppStatus.loggedIn {
-            self.performSegueWithIdentifier("StatsSegue", sender: self)
+            self.performSegue(withIdentifier: "StatsSegue", sender: self)
         } else {
             sendLoginNudge()
         }
@@ -132,47 +132,47 @@ class HomeViewController: UIViewController {
     
     func sendLoginNudge() {
         
-        let alert = UIAlertController(title: "Login Required", message: "Sorry, you need to login first", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Login Required", message: "Sorry, you need to login first", preferredStyle: UIAlertControllerStyle.alert)
         
-        let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+        let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
         
         alert.addAction(alertAction)
         
-        self.showViewController(alert, sender: self)
+        self.show(alert, sender: self)
         
     }
     
     
-    func setLabelFonts(labels: [UILabel], font: UIFont){
+    func setLabelFonts(_ labels: [UILabel], font: UIFont){
         
         for index in 0..<labels.count {
             
             labels[index].font = font
             labels[index].adjustsFontSizeToFitWidth = true
-            labels[index].baselineAdjustment = .AlignCenters
+            labels[index].baselineAdjustment = .alignCenters
             
         }
         
     }
     
     func documentsDirectory() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         return paths[0]
     }
     
     func dataFilePath() -> String {
-        return (documentsDirectory() as NSString).stringByAppendingPathComponent("AppInfo.plist")
+        return (documentsDirectory() as NSString).appendingPathComponent("AppInfo.plist")
     }
     
     func loadData() {
         let path = dataFilePath()
         
-        if NSFileManager.defaultManager().fileExistsAtPath(path){
+        if FileManager.default.fileExists(atPath: path){
             
-            if let data = NSData(contentsOfFile: path){
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: path)){
                 
-                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-                currentAppStatus.loggedInUser = unarchiver.decodeObjectForKey("Logged In User") as? UserProfile
+                let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+                currentAppStatus.loggedInUser = unarchiver.decodeObject(forKey: "Logged In User") as? UserProfile
                 
                 if currentAppStatus.loggedInUser != nil {
                     

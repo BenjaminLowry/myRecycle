@@ -12,9 +12,9 @@ import Foundation
 import UIKit
 
 protocol ItemDetailViewControllerDelegate: class {
-    func itemDetailViewControllerDidCancel(controller: ItemDetailViewController)
-    func itemDetailViewController(controller: ItemDetailViewController, didFinishAddingItem item: LogItem)
-    func itemDetailViewController(controller: ItemDetailViewController, didFinishEditingItem item: LogItem)
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: LogItem)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: LogItem)
 }
 
 class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
@@ -76,19 +76,19 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         unitPickerView.tag = 2
 
         materialPickerData = ["Aluminum Cans", "Plastic Bags", "Paper", "Food Waste", "Plastic Bottles", "Plastic Packaging", "Glass", "Cardboard", "Electronics", "Rubber"]
-        materialPickerData.sortInPlace()
-        materialPickerData.insert("~ Material Type ~", atIndex: 0)
+        materialPickerData.sort()
+        materialPickerData.insert("~ Material Type ~", at: 0)
         
         unitPickerData = ["Pounds", "Kilograms"]
-        unitPickerData.insert("~ Unit ~", atIndex: 0)
+        unitPickerData.insert("~ Unit ~", at: 0)
         
         initializePickerViewToolBar("clearPressedForMaterialPickerView:", doneButtonFunc: "donePressedForMaterialPickerView:", textField: materialTextField)
         initializePickerViewToolBar("clearPressedForUnitPickerView", doneButtonFunc: "donePressedForUnitPickerView", textField: unitTextField)
         
-        amountTextField.addTarget(self, action: #selector(ItemDetailViewController.amountTextFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        amountTextField.addTarget(self, action: #selector(ItemDetailViewController.amountTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
         //initialize bottomView width
-        bottomView.frame.size.width = UIScreen.mainScreen().bounds.width
+        bottomView.frame.size.width = UIScreen.main.bounds.width
         
         //view height/width ratio
         let ratio: CGFloat = 312/320
@@ -127,36 +127,36 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
                         setupStatsView(Double(previousStats[0]), previousWater: Double(previousStats[1]), previousTrees: Double(previousStats[2]), previousSmoke: Double(previousStats[3]), previousTrash: Double(previousStats[4]))
                         
                     } else {
-                        throw AppError.NumberParseError
+                        throw AppError.numberParseError
                     }
                     
                 } else {
-                    throw AppError.NilError
+                    throw AppError.nilError
                 }
                 
-            } catch AppError.NumberParseError {
+            } catch AppError.numberParseError {
                 
                 //present error
-                let alertController = UIAlertController(title: "Error #E04", message: "Sorry about that, please try again.", preferredStyle: .Alert)
-                let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                let alertController = UIAlertController(title: "Error #E04", message: "Sorry about that, please try again.", preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                 alertController.addAction(alertAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true, completion: nil)
                 
-            } catch AppError.NilError {
+            } catch AppError.nilError {
                 
                 //present error
-                let alertController = UIAlertController(title: "Error #E01", message: "Sorry about that, please try again.", preferredStyle: .Alert)
-                let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                let alertController = UIAlertController(title: "Error #E01", message: "Sorry about that, please try again.", preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                 alertController.addAction(alertAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true, completion: nil)
                 
             } catch {
                 
                 //present error
-                let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .Alert)
-                let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                 alertController.addAction(alertAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true, completion: nil)
                 
             }
             
@@ -173,7 +173,7 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
     
     
     //setting tableView rows and sections
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var numberOfRows: Int = 0
         
@@ -189,7 +189,7 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
     }
     
     //returing static cells
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cellToReturn: UITableViewCell!
         
@@ -249,13 +249,13 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
                         
                     } else { //if the amount is not a number
                         
-                        throw AppError.NumberParseError
+                        throw AppError.numberParseError
                         
                     }
                     
                 } else {
                     
-                    throw AppError.NilError
+                    throw AppError.nilError
                     
                 }
                 
@@ -275,72 +275,72 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
                         
                     } else {
                         
-                        throw AppError.NumberParseError
+                        throw AppError.numberParseError
                         
                     }
                     
                 } else {
                     
-                    throw AppError.NilError
+                    throw AppError.nilError
                     
                 }
                 
             }
             
-        } catch AppError.NumberParseError {
+        } catch AppError.numberParseError {
             
             //present error
-            let alertController = UIAlertController(title: "Error #E04", message: "Amount must be a number, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error #E04", message: "Amount must be a number, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
-        } catch AppError.NilError {
+        } catch AppError.nilError {
             
             //present error
-            let alertController = UIAlertController(title: "Error #E01", message: "One or more fields are empty, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error #E01", message: "One or more fields are empty, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         } catch {
             
             //present error
-            let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         }
         
     }
     
     
-    @IBAction func materialPickerViewDismissed(sender: UITextField) {
+    @IBAction func materialPickerViewDismissed(_ sender: UITextField) {
         
         hideMaterialPicker()
         
     }
     
-    @IBAction func unitPickerViewDismissed(sender: UITextField) {
+    @IBAction func unitPickerViewDismissed(_ sender: UITextField) {
         
         updatePointWorthCell()
         
     }
     
-    func initializePickerViewToolBar(clearButtonFunc: String, doneButtonFunc: String, textField: UITextField){
+    func initializePickerViewToolBar(_ clearButtonFunc: String, doneButtonFunc: String, textField: UITextField){
         
-        let toolBar = UIToolbar(frame: CGRectMake(0, textField.frame.size.height/6, textField.frame.size.width, 40.0))
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: textField.frame.size.height/6, width: textField.frame.size.width, height: 40.0))
         toolBar.layer.position = CGPoint(x: textField.frame.size.width/2, y: textField.frame.size.height-20.0)
-        toolBar.barStyle = UIBarStyle.Default
-        toolBar.tintColor = UIColor.blackColor()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.tintColor = UIColor.black
         
-        let clearButton = UIBarButtonItem(title: "Clear", style: UIBarButtonItemStyle.Plain, target: self, action: Selector(clearButtonFunc))
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: Selector(doneButtonFunc))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil)
+        let clearButton = UIBarButtonItem(title: "Clear", style: UIBarButtonItemStyle.plain, target: self, action: Selector(clearButtonFunc))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: Selector(doneButtonFunc))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
         
         toolBar.setItems([clearButton,flexSpace,doneButton], animated: true)
-        toolBar.userInteractionEnabled = true
+        toolBar.isUserInteractionEnabled = true
         
         textField.inputAccessoryView = toolBar
         
@@ -354,13 +354,13 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
 
     /*** Material Picker Done/Clear ***/
     
-    func clearPressedForMaterialPickerView(sender: UIBarButtonItem) {
+    func clearPressedForMaterialPickerView(_ sender: UIBarButtonItem) {
         hideMaterialPicker()
         
         materialTextField.text = ""
     }
     
-    func donePressedForMaterialPickerView(sender: UIBarButtonItem) {
+    func donePressedForMaterialPickerView(_ sender: UIBarButtonItem) {
         hideMaterialPicker()
         
     }
@@ -424,40 +424,40 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         
         do {
             
-            if materialPickerData.indexOf(materialSelectedOption) != nil { //+1 is to account for the "~ Unit ~" row
+            if materialPickerData.index(of: materialSelectedOption) != nil { //+1 is to account for the "~ Unit ~" row
                 
-                let materialRowWanted = materialPickerData.indexOf(materialSelectedOption)
+                let materialRowWanted = materialPickerData.index(of: materialSelectedOption)
                 materialPickerView.selectRow(materialRowWanted!, inComponent: 0, animated: false)
             
             } else {
-                throw AppError.NilError
+                throw AppError.nilError
             }
             
-            if unitPickerData.indexOf(unitSelectedOption) != nil { //+1 is to account for the "~ Unit ~" row
+            if unitPickerData.index(of: unitSelectedOption) != nil { //+1 is to account for the "~ Unit ~" row
                 
-                let unitRowWanted = unitPickerData.indexOf(unitSelectedOption)
+                let unitRowWanted = unitPickerData.index(of: unitSelectedOption)
                 unitPickerView.selectRow(unitRowWanted!, inComponent: 0, animated: false)
                 
             } else {
-                throw AppError.NilError
+                throw AppError.nilError
             }
             
             
-        } catch AppError.NilError {
+        } catch AppError.nilError {
            
             //present error
-            let alertController = UIAlertController(title: "Error #E01", message: "Error, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error #E01", message: "Error, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         } catch {
             
             //present error
-            let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error", message: "Sorry about that, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         }
         
@@ -483,12 +483,12 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
     }
     
     // The number of columns of data
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     // The number of rows of data
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         var returnIndex: Int = 0
         
@@ -502,7 +502,7 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
     }
     
     // The data to return for the row and component (column) that's being passed in
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         var returnRow: String!
     
@@ -516,7 +516,7 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
     }
     
     // Catpure the picker view selection
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
         
@@ -540,7 +540,7 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         /*
         let oldMaterialText: NSString = materialTextField.text!
@@ -566,14 +566,14 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool { //called when 'return' key is pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool { //called when 'return' key is pressed
         
         textField.resignFirstResponder()
         return true
         
     }
     
-    func amountTextFieldDidChange(sender: UITextField){
+    func amountTextFieldDidChange(_ sender: UITextField){
         
         updatePointWorthCell()
         updateStatsView()
@@ -602,15 +602,15 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         
     }
     
-    func setupStatsView(previousLightning: Double, previousWater: Double, previousTrees: Double, previousSmoke: Double, previousTrash: Double){
+    func setupStatsView(_ previousLightning: Double, previousWater: Double, previousTrees: Double, previousSmoke: Double, previousTrash: Double){
         
         var imageSize: CGFloat = 0
         var fontSize: CGFloat = 0
         
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.numberStyle = .DecimalStyle
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
         
-        switch UIScreen.mainScreen().bounds.height {
+        switch UIScreen.main.bounds.height {
         case 568: //iPhone 5, 5s, 5c
             imageSize = 50
             fontSize = 12
@@ -642,13 +642,13 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         let lightningTitleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: fontSize + 5))
         lightningTitleLabel.text = "Energy Saved (kWh):"
         lightningTitleLabel.font = UIFont(name: "AvenirNext-Medium", size: fontSize)
-        lightningTitleLabel.textAlignment = .Center
+        lightningTitleLabel.textAlignment = .center
         lightningTitleLabel.frame.origin = CGPoint(x: middleLeftX - lightningTitleLabel.frame.width/2, y: 20 + imageSize + 10)
         
         lightningContentLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: fontSize))
-        lightningContentLabel.text = numberFormatter.stringFromNumber(round(previousLightning*100)/100)
+        lightningContentLabel.text = numberFormatter.string(from: NSNumber(value: round(previousLightning * 100) / 100))
         lightningContentLabel.font = UIFont(name: "AvenirNext-UltraLight", size: fontSize)
-        lightningContentLabel.textAlignment = .Center
+        lightningContentLabel.textAlignment = .center
         lightningContentLabel.frame.origin = CGPoint(x: middleLeftX - lightningContentLabel.frame.width/2, y: 20 + imageSize + 10 + (fontSize + 5) + 10)
         lightningContentLabel.adjustsFontSizeToFitWidth = true
         
@@ -666,13 +666,13 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         let waterTitleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: fontSize + 5))
         waterTitleLabel.text = "Water Saved (liters):"
         waterTitleLabel.font = UIFont(name: "AvenirNext-Medium", size: fontSize)
-        waterTitleLabel.textAlignment = .Center
+        waterTitleLabel.textAlignment = .center
         waterTitleLabel.frame.origin = CGPoint(x: middleRightX - waterTitleLabel.frame.width/2, y: 20 + imageSize + 10)
         
         waterContentLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: fontSize))
-        waterContentLabel.text = numberFormatter.stringFromNumber(round(previousWater*100)/100)
+        waterContentLabel.text = numberFormatter.string(from: NSNumber(value: round(previousWater * 100) / 100))
         waterContentLabel.font = UIFont(name: "AvenirNext-UltraLight", size: fontSize)
-        waterContentLabel.textAlignment = .Center
+        waterContentLabel.textAlignment = .center
         waterContentLabel.frame.origin = CGPoint(x: middleRightX - waterContentLabel.frame.width/2, y: 20 + imageSize + 10 + (fontSize + 5) + 10)
         waterContentLabel.adjustsFontSizeToFitWidth = true
         
@@ -692,13 +692,13 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         let treeTitleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: fontSize + 5))
         treeTitleLabel.text = "Trees Saved:"
         treeTitleLabel.font = UIFont(name: "AvenirNext-Medium", size: fontSize)
-        treeTitleLabel.textAlignment = .Center
+        treeTitleLabel.textAlignment = .center
         treeTitleLabel.frame.origin = CGPoint(x: middleLeftX - treeTitleLabel.frame.width/2, y: previousHeight + 20 + imageSize + 10)
         
         treeContentLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: fontSize))
-        treeContentLabel.text = numberFormatter.stringFromNumber(round(previousTrees*100)/100)
+        treeContentLabel.text = numberFormatter.string(from: NSNumber(value: round(previousTrees * 100) / 100))
         treeContentLabel.font = UIFont(name: "AvenirNext-UltraLight", size: fontSize)
-        treeContentLabel.textAlignment = .Center
+        treeContentLabel.textAlignment = .center
         treeContentLabel.frame.origin = CGPoint(x: middleLeftX - treeContentLabel.frame.width/2, y: previousHeight + 20 + imageSize + 10 + (fontSize + 5) + 10)
         treeContentLabel.adjustsFontSizeToFitWidth = true
         
@@ -717,13 +717,13 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         let smokeTitleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: fontSize + 5))
         smokeTitleLabel.text = "CO2 Prevented (kilos):"
         smokeTitleLabel.font = UIFont(name: "AvenirNext-Medium", size: fontSize)
-        smokeTitleLabel.textAlignment = .Center
+        smokeTitleLabel.textAlignment = .center
         smokeTitleLabel.frame.origin = CGPoint(x: middleRightX - smokeTitleLabel.frame.width/2, y: previousHeight + 20 + imageSize + 10)
         
         smokeContentLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: fontSize))
-        smokeContentLabel.text = numberFormatter.stringFromNumber(round(previousSmoke*100)/100)
+        smokeContentLabel.text = numberFormatter.string(from: NSNumber(value: round(previousSmoke * 100) / 100))
         smokeContentLabel.font = UIFont(name: "AvenirNext-UltraLight", size: fontSize)
-        smokeContentLabel.textAlignment = .Center
+        smokeContentLabel.textAlignment = .center
         smokeContentLabel.frame.origin = CGPoint(x: middleRightX - smokeContentLabel.frame.width/2, y: previousHeight + 20 + imageSize + 10 + (fontSize + 5) + 10)
         smokeContentLabel.adjustsFontSizeToFitWidth = true
         
@@ -731,11 +731,9 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
         /* TRASH */
         /* %%%%% */
         
-        trashContentLabel.hidden = true
-        trashContentLabel.text = numberFormatter.stringFromNumber(round(previousTrash*100)/100)
+        trashContentLabel.isHidden = true
+        trashContentLabel.text = numberFormatter.string(from: NSNumber(value: round(previousTrash * 100) / 100))
 
-        
-        
         bottomView.addSubview(lightningTitleLabel)
         bottomView.addSubview(lightningContentLabel)
         
@@ -757,15 +755,15 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
     
     func updateStatsView() {
         
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.numberStyle = .DecimalStyle
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
         
         //to offset the new numbers being added
-        currentAppStatus.loggedInUser?.electricitySaved -= Double(lightningContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
-        currentAppStatus.loggedInUser?.waterSaved -= Double(waterContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
-        currentAppStatus.loggedInUser?.treesSaved -= Double(treeContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
-        currentAppStatus.loggedInUser?.carbonDioxideEmissionsPrevented -= Double(smokeContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
-        currentAppStatus.loggedInUser?.trashRecycled -= Double(trashContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
+        currentAppStatus.loggedInUser?.electricitySaved -= Double(lightningContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
+        currentAppStatus.loggedInUser?.waterSaved -= Double(waterContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
+        currentAppStatus.loggedInUser?.treesSaved -= Double(treeContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
+        currentAppStatus.loggedInUser?.carbonDioxideEmissionsPrevented -= Double(smokeContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
+        currentAppStatus.loggedInUser?.trashRecycled -= Double(trashContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
         
         if let amount: Double = Double(amountTextField.text!) {
             
@@ -774,17 +772,17 @@ class ItemDetailViewController: UITableViewController, UIPickerViewDataSource, U
             //to offset the previous call
             //currentAppStatus.loggedInUser?.updateStats(materialTextField.text!, unit: unitTextField.text!, amount: amount, reducingStats: true)
             
-            lightningContentLabel.text = numberFormatter.stringFromNumber(round(changeValues[0]*100)/100)
-            waterContentLabel.text = numberFormatter.stringFromNumber(round(changeValues[1]*100)/100)
-            treeContentLabel.text = numberFormatter.stringFromNumber(round(changeValues[2]*100)/100)
-            smokeContentLabel.text = numberFormatter.stringFromNumber(round(changeValues[3]*100)/100)
-            trashContentLabel.text = numberFormatter.stringFromNumber(round(changeValues[4]*100)/100)
+            lightningContentLabel.text = numberFormatter.string(from: NSNumber(value: round(changeValues[0] * 100) / 100))
+            waterContentLabel.text = numberFormatter.string(from: NSNumber(value: round(changeValues[1] * 100) / 100))
+            treeContentLabel.text = numberFormatter.string(from: NSNumber(value: round(changeValues[2] * 100) / 100))
+            smokeContentLabel.text = numberFormatter.string(from: NSNumber(value: round(changeValues[3] * 100) / 100))
+            trashContentLabel.text = numberFormatter.string(from: NSNumber(value: round(changeValues[4] * 100) / 100))
             
-            currentLightningValue = Double(lightningContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
-            currentWaterValue = Double(waterContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
-            currentTreeValue = Double(treeContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
-            currentSmokeValue = Double(smokeContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
-            currentTrashValue = Double(trashContentLabel.text!.stringByReplacingOccurrencesOfString(",", withString: ""))!
+            currentLightningValue = Double(lightningContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
+            currentWaterValue = Double(waterContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
+            currentTreeValue = Double(treeContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
+            currentSmokeValue = Double(smokeContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
+            currentTrashValue = Double(trashContentLabel.text!.replacingOccurrences(of: ",", with: ""))!
             
         } else {
             

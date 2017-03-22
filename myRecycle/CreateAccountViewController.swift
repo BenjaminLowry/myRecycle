@@ -25,9 +25,9 @@ class CreateAccountViewController: UITableViewController {
         
         loadData()
         
-        usernameTextField.autocorrectionType = .No
-        passwordTextField.autocorrectionType = .No
-        passwordCheckTextField.autocorrectionType = .No
+        usernameTextField.autocorrectionType = .no
+        passwordTextField.autocorrectionType = .no
+        passwordCheckTextField.autocorrectionType = .no
     }
     
     @IBAction func done() {
@@ -36,11 +36,11 @@ class CreateAccountViewController: UITableViewController {
         
             if passwordTextField.text! != passwordCheckTextField.text! {
                 
-                throw AppError.PasswordMismatchError
+                throw AppError.passwordMismatchError
                 
             } else if localUsernames.contains(usernameTextField.text!) {
                 
-                throw AppError.UsernameTakenError
+                throw AppError.usernameTakenError
                 
             } else {
                 
@@ -54,82 +54,82 @@ class CreateAccountViewController: UITableViewController {
                     
                     currentAppStatus.loggedIn = true
                     currentAppStatus.loggedInUser = newAccount
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                     
                 } else {
                     
-                    throw AppError.NilError
+                    throw AppError.nilError
                     
                 }
                 
             }
             
-        } catch AppError.PasswordMismatchError {
+        } catch AppError.passwordMismatchError {
             
             //present error
-            let alertController = UIAlertController(title: "Error #E05", message: "Passwords do not match, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error #E05", message: "Passwords do not match, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
-        } catch AppError.UsernameTakenError {
+        } catch AppError.usernameTakenError {
             
             //present error
-            let alertController = UIAlertController(title: "Error #E06", message: "Username is taken, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error #E06", message: "Username is taken, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
-        } catch AppError.NilError {
+        } catch AppError.nilError {
             
             //present error
-            let alertController = UIAlertController(title: "Error #E01", message: "One or more fields are empty, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error #E01", message: "One or more fields are empty, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         } catch {
             
             //present error
-            let alertController = UIAlertController(title: "Error", message: "One or more fields are empty, please try again.", preferredStyle: .Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Error", message: "One or more fields are empty, please try again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alertController.addAction(alertAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         }
         
     }
     
     @IBAction func cancel() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func documentsDirectory() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         return paths[0]
     }
     
     func dataFilePath() -> String {
-        return (documentsDirectory() as NSString).stringByAppendingPathComponent("AccountInfo.plist")
+        return (documentsDirectory() as NSString).appendingPathComponent("AccountInfo.plist")
     }
     
     func saveData() {
         let data = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
-        archiver.encodeObject(localUsernames, forKey: "Usernames")
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        archiver.encode(localUsernames, forKey: "Usernames")
         archiver.finishEncoding()
-        data.writeToFile(dataFilePath(), atomically: true)
+        data.write(toFile: dataFilePath(), atomically: true)
     }
     
     func loadData() {
         let path = dataFilePath()
         
-        if NSFileManager.defaultManager().fileExistsAtPath(path){
+        if FileManager.default.fileExists(atPath: path){
             
-            if let data = NSData(contentsOfFile: path){
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: path)){
                 
-                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-                localUsernames = unarchiver.decodeObjectForKey("Usernames") as! [String]
+                let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+                localUsernames = unarchiver.decodeObject(forKey: "Usernames") as! [String]
                 
                 unarchiver.finishDecoding()
             }

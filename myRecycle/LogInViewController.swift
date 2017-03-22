@@ -24,10 +24,10 @@ class LogInViewController: UITableViewController {
     }
     
     @IBAction func cancel() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func done(sender: AnyObject) {
+    @IBAction func done(_ sender: AnyObject) {
         loadData()
         
         if localUsernames.contains(usernameTextField.text!){
@@ -40,7 +40,7 @@ class LogInViewController: UITableViewController {
                     if index.password == passwordTextField.text! {
                         currentAppStatus.loggedIn = true
                         currentAppStatus.loggedInUser = index
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                        self.dismiss(animated: true, completion: nil)
                     } else { //if the password doesn't match the username
                         sendLoginError()
                     }
@@ -57,32 +57,32 @@ class LogInViewController: UITableViewController {
     
     func sendLoginError(){
         
-        let alert = UIAlertController(title: "Login Error", message: "Username and password do not match", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Login Error", message: "Username and password do not match", preferredStyle: UIAlertControllerStyle.alert)
         
-        let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+        let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
         alert.addAction(alertAction)
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func documentsDirectory() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         return paths[0]
     }
     
     func dataFilePath() -> String {
-        return (documentsDirectory() as NSString).stringByAppendingPathComponent("AccountInfo.plist")
+        return (documentsDirectory() as NSString).appendingPathComponent("AccountInfo.plist")
     }
     
     func loadData() {
         let path = dataFilePath()
         
-        if NSFileManager.defaultManager().fileExistsAtPath(path){
+        if FileManager.default.fileExists(atPath: path){
             
-            if let data = NSData(contentsOfFile: path){
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: path)){
                 
-                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-                localUsernames = unarchiver.decodeObjectForKey("Usernames") as! [String]
+                let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+                localUsernames = unarchiver.decodeObject(forKey: "Usernames") as! [String]
                 
                 unarchiver.finishDecoding()
             }

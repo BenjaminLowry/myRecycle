@@ -16,11 +16,11 @@ class Award: NSObject, NSCoding {
     
     var image: UIImage = UIImage()
     
-    required init?;?(coder aDecoder: NSCoder){
-        title = aDecoder.decodeObjectForKey("Title") as! String
-        pointWorth = aDecoder.decodeObjectForKey("Point Worth") as! Int
+    required init?(coder aDecoder: NSCoder){
+        title = aDecoder.decodeObject(forKey: "Title") as! String
+        pointWorth = aDecoder.decodeObject(forKey: "Point Worth") as! Int
         
-        image = aDecoder.decodeObjectForKey("Image") as! UIImage
+        image = aDecoder.decodeObject(forKey: "Image") as! UIImage
         
         super.init()
     }
@@ -35,14 +35,14 @@ class Award: NSObject, NSCoding {
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(title, forKey: "Title")
-        aCoder.encodeObject(pointWorth, forKey: "Point Worth")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(title, forKey: "Title")
+        aCoder.encode(pointWorth, forKey: "Point Worth")
         
-        aCoder.encodeObject(image, forKey: "Image")
+        aCoder.encode(image, forKey: "Image")
     }
     
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         if let other = object as? Award {
             return self.title == other.title
         } else {
